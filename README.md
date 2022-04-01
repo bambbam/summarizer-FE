@@ -1,3 +1,3 @@
 # summarizer-FE
 
-capstone design1 summarizer frontend with React for
+capstone design1 summarizer frontend with React
