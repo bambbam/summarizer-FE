@@ -13,6 +13,7 @@ export interface LoginInfo {
     password: string;
 }
 
+export type current_user = string;
 class UserApi {
     client: AxiosInstance;
     prefix: string;
