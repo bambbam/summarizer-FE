@@ -10,12 +10,14 @@ import MainPage from "./page/mainPage";
 import VideoPage from "./page/videoPage";
 import VideoApi from "./api/video";
 import VideoUploadPage from "./page/videoUploadPage";
+import FeatureApi from "./api/feature";
 
 const get_apis = () => {
     let ret = {
         userapi: new UserApi(client),
         videoApi: new VideoApi(client),
         s3Api: new S3Api(process.env.REACT_APP_S3_bucket as string),
+        featureApi: new FeatureApi(client),
     };
     return ret;
 };

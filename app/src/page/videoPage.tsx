@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { VideoFeature } from "../api/feature";
 import { Video } from "../api/video";
 import { Api } from "../App";
 import Header from "../component/header";
+import ImageTable from "../component/imageTable";
 
-const get_url = (key: string) => {
-    return `https://${process.env.REACT_APP_S3_bucket}.s3.${process.env.REACT_APP_S3_aws_region}.amazonaws.com/${key}`;
-};
 interface VideoPageProps {
     user: string | null;
     api: Api;
@@ -14,6 +13,7 @@ interface VideoPageProps {
 const VideoPage = ({ user, api }: VideoPageProps) => {
     const { key } = useParams();
     const [video, setVideo] = useState<Video | null>(null);
+    const [feature, setFeature] = useState<VideoFeature | null>(null);
     const extract_feature = async () => {
         if (video) {
             try {
@@ -36,6 +36,16 @@ const VideoPage = ({ user, api }: VideoPageProps) => {
         };
         f();
     }, [api.videoApi, key]);
+    useEffect(() => {
+        const f = async () => {
+            if (!video) return;
+            if (video.status !== "end") return;
+            const ret = await api.featureApi.get_video_feature(video.key);
+            setFeature(ret.data);
+            console.log(ret.data);
+        };
+        f();
+    }, [api.featureApi, video]);
     if (!video) {
         return <div>loading</div>;
     }
@@ -43,13 +53,14 @@ const VideoPage = ({ user, api }: VideoPageProps) => {
         <>
             <Header user={user}></Header>
             <video controls={true}>
-                <source src={get_url(video.key)}></source>
+                <source src={api.s3Api.get_url("video", video.key)}></source>
             </video>
             {video.status === "uploaded" && <button onClick={extract_feature}>extract_feature</button>}
             {video.status === "end" && <button onClick={extract_feature}>extract!!</button>}
             <div>key: {video.key}</div>
             <div>inserted_time : {video.start_time}</div>
             {video.status === "end" && <div>end_time : {video.end_time}</div>}
+            {feature && <ImageTable videoKey={video.key} features={feature.representing_features} api={api} />}
         </>
     );
 };

@@ -14,24 +14,27 @@ class S3Api {
         });
         this.bucket_name = bucket_name;
     }
-    get_object(key: string) {
+    get_object(prefix: string, key: string) {
         return this.s3.getObject({
             Bucket: this.bucket_name,
-            Key: key,
+            Key: `${prefix}/${key}`,
         });
     }
-    upload_object(key: string, file: File) {
+    upload_object(prefix: string, key: string, file: File) {
         try {
             return this.s3
                 .upload({
                     Bucket: this.bucket_name,
-                    Key: key,
+                    Key: `${prefix}/${key}`,
                     Body: file,
                 })
                 .promise();
         } catch (e) {
             console.log(e);
         }
+    }
+    get_url(prefix: string, key: string) {
+        return `https://${process.env.REACT_APP_S3_bucket}.s3.${process.env.REACT_APP_S3_aws_region}.amazonaws.com/${prefix}/${key}`;
     }
 }
 

@@ -40,7 +40,7 @@ const QueueTable = (props: QueueTableProps) => {
                             </TableCell>
                             <TableCell align="right">{video.key}</TableCell>
                             <TableCell align="right">{video.start_time}</TableCell>
-                            <TableCell align="right">{video.end_time ? "" : video.end_time}</TableCell>
+                            <TableCell align="right">{video.end_time ? video.end_time : ""}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
