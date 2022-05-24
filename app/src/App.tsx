@@ -3,16 +3,19 @@ import logo from "./logo.svg";
 import "./App.css";
 import LoginPage from "./page/loginPage";
 import UserApi from "./api/user";
+import S3Api from "./api/s3";
 import client from "./api/base";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MainPage from "./page/mainPage";
 import VideoPage from "./page/videoPage";
 import VideoApi from "./api/video";
+import VideoUploadPage from "./page/videoUploadPage";
 
 const get_apis = () => {
     let ret = {
         userapi: new UserApi(client),
         videoApi: new VideoApi(client),
+        s3Api: new S3Api(process.env.REACT_APP_S3_bucket as string),
     };
     return ret;
 };
@@ -36,9 +39,10 @@ function App() {
         <div className="App">
             <BrowserRouter>
                 <Routes>
-                    <Route path="/login" element={<LoginPage api={Apis} user={user} setUser={setUser} />} />
                     <Route path="/" element={<MainPage api={Apis} user={user} />} />
-                    <Route path="/video" element={<VideoPage />} />
+                    <Route path="/login" element={<LoginPage api={Apis} user={user} setUser={setUser} />} />
+                    <Route path="/video/:key" element={<VideoPage user={user} api={Apis} />} />
+                    <Route path="/upload" element={<VideoUploadPage api={Apis} />} />
                 </Routes>
             </BrowserRouter>
         </div>

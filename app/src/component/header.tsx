@@ -10,6 +10,7 @@ interface HeaderProps {
 }
 
 const LogoutArea = ({ username }: { username: string }) => {
+    const navigate = useNavigate();
     const logout = () => {
         localStorage.removeItem("access_token");
         setAuthorizationToken(null);
@@ -18,7 +19,13 @@ const LogoutArea = ({ username }: { username: string }) => {
     return (
         <div className="navbar__right">
             <div className="navbar__right__username">{username}</div>
-            <Button>upload</Button>
+            <Button
+                onClick={() => {
+                    navigate("/upload");
+                }}
+            >
+                upload
+            </Button>
             <Button onClick={logout}>logout</Button>
         </div>
     );
