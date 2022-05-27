@@ -1,0 +1,23 @@
+.image_table {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+    justify-content: space-around;
+    column-gap: 20px;
+    row-gap: 40px;
+    padding-left: 72px;
+    padding-right: 72px;
+    padding-bottom: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    .image_table_item {
+        border: 1px solid black;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        .image_table_item_img {
+            width: 200px;
+            margin: 15px 0;
+        }
+    }
+}

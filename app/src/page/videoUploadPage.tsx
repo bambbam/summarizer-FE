@@ -15,7 +15,7 @@ const VideoUploadPage = ({ api }: VideoUploadPageProps) => {
         if (file !== undefined) {
             const src = URL.createObjectURL(file);
             const key = v4() + ".mp4";
-            await api.s3Api.upload_object('video',key, file);
+            await api.s3Api.upload_object("video", key, file);
             setVideoFile(src);
             await api.videoApi.upload_video({
                 key: key,
