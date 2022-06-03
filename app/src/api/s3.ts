@@ -18,7 +18,13 @@ class S3Api {
         return this.s3.getObject({
             Bucket: this.bucket_name,
             Key: `${prefix}/${key}`,
-        });
+        }).promise();
+    }
+    head_object(prefix:string, key: string){
+        return this.s3.headObject({
+            Bucket: this.bucket_name,
+            Key: `${prefix}/${key}`,
+        }).promise();
     }
     upload_object(prefix: string, key: string, file: File) {
         try {

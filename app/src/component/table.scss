@@ -15,9 +15,24 @@
         flex-direction: column;
         justify-content: space-around;
         align-items: center;
+        cursor: pointer;
         .image_table_item_img {
             width: 200px;
             margin: 15px 0;
         }
+        .image_table_item_values{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+        .image_table_check_box{
+            width: 100%;
+            height: 15px;
+            border: 1px solid black;
+        }
+        .image_table_check_box.filled{
+            background-color: black;
+        }
+        
     }
 }

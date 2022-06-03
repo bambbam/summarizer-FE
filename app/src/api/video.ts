@@ -17,6 +17,13 @@ export interface ExtractFeature {
     type: "ExtractFeature";
     key: string;
 }
+
+export interface ShortenVideo{
+    type: "ShortenVideo"
+    key: string
+    must_include_feature: string[]
+}
+
 class VideoApi {
     client: AxiosInstance;
     prefix: string;
@@ -35,6 +42,9 @@ class VideoApi {
     }
     extract_feature(command: ExtractFeature) {
         return client.post(this.prefix + "/extract", command);
+    }
+    shorten_video(command: ShortenVideo) {
+        return client.post(this.prefix+"/shorten", command);
     }
 }
 
