@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { VideoFeature } from "../api/feature";
 import { Video } from "../api/video";
 import { Api } from "../App";
@@ -26,6 +26,7 @@ export function emptyCache(){
 }
 
 const VideoPage = ({ user, api }: VideoPageProps) => {
+    const navigate = useNavigate();
     const { key } = useParams();
     const [video, setVideo] = useState<Video | null>(null);
     const [feature, setFeature] = useState<VideoFeature | null>(null);
@@ -39,6 +40,7 @@ const VideoPage = ({ user, api }: VideoPageProps) => {
                     type: "ExtractFeature",
                     key: video.key,
                 });
+                navigate("/");
             } catch (e) {
                 console.log(e);
             }
@@ -60,6 +62,7 @@ const VideoPage = ({ user, api }: VideoPageProps) => {
                 must_include_feature: must_include_feature
             })
             setShortenVideoCheck(true)
+            navigate("/");
         }
         catch{
             setShortenVideoCheck(false)

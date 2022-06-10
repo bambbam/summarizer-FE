@@ -14,7 +14,17 @@ const MainPage = ({ user, api }: MainPageProps) => {
     useEffect(() => {
         async function read_videos() {
             const ret = await api.videoApi.read_all_videos();
-            setVideos(ret.data);
+            let arr = ret.data
+            arr = arr.sort((a: Video, b:Video)=>{
+                let a_date_time = a.start_time.split('_')
+                let b_date_time = b.start_time.split('_')
+                let ax = new Date(`${a_date_time[0].replaceAll('/','-')}T${a_date_time[1]}`)
+                let ay = new Date(`${b_date_time[0].replaceAll('/','-')}T${b_date_time[1]}`)
+                console.log(ax,ay)
+                return ay.getTime()-ax.getTime()
+            })
+            console.log(arr)
+            setVideos(arr);
         }
         read_videos();
     }, [api.videoApi]);
