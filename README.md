@@ -10,6 +10,7 @@
 
 ```
 > npm install
+> cd app
 > npm run start
 ```
 
