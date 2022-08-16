@@ -9,8 +9,8 @@
 ## To Start
 
 ```
-> npm install
 > cd app
+> npm install
 > npm run start
 ```
 
